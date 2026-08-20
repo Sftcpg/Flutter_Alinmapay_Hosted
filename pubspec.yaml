@@ -1,0 +1,40 @@
+name: flutter_payment_plugin
+description: This Flutter plugin provide merchants to easy and hasslefree integration with Payment gateway API's.
+version: 1.1.0
+homepage: https://github.com/example/flutter_payment_plugin
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.8
+  http: ^1.3.1
+  convert: ^3.1.2
+  crypto: ^3.0.6
+  connectivity_plus: ^7.3.1
+  device_info_plus: ^13.2.0
+  dart_ipify: ^1.1.1
+  path_provider: ^2.1.6
+  package_info_plus: ^10.2.1
+  webview_flutter: ^4.14.1
+  webview_flutter_web: ^0.2.3+4
+  url_launcher: ^6.3.1
+  yaml: ^3.1.1
+  encrypt: ^5.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.flutter_payment_plugin
+        pluginClass: FlutterPaymentPlugin
+      ios:
+        pluginClass: ApplePayFlutterPlugin
