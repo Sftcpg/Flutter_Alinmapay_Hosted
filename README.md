@@ -1,7 +1,7 @@
-# urwaypayment
+# flutter_alinmapay_hosted
 
-A Urway is a payment gateway with payment solutions in Flutter.
-This Flutter plugin provide merchants to easy and hasslefree integration with Urway Payment gateway API's.
+
+This Flutter plugin provide merchants to easy and hasslefree integration with Merchant Payment gateway API's.
 
 ## Getting Started
 
@@ -10,7 +10,8 @@ Import the package to your pubspec.yaml to use it:
     ...
     dependencies:
     ...
-    urwaypayment: ^1.0.11    
+    flutter_alinmapay_hosted: ^1.0.0
+
     ...
     ...
 
@@ -23,12 +24,7 @@ And place the file into application asset folder.
 You need to put the following implementations in Android and iOS respectively.
 
 Android
-  -Make sure to add this line android:usesCleartextTraffic="true" in your <project-directory>/android/app/src/main/AndroidManifest.xml under application like this.
-
-        <application
-        android:usesCleartextTraffic="true">
-        </application>
-
+ 
 Required Permissions are:
 
     <uses-permission android:name="android.permission.INTERNET" />
