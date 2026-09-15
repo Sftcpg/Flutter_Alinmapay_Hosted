@@ -153,7 +153,7 @@ class Payment {
     String readRespData= "";
     String pipeSeperatedString;
     var body;
-    var ipAdd = "";
+
 
     String compURL;
     String? devicemodel;
@@ -183,7 +183,7 @@ class Payment {
      * */
     try {
       final ipv64 = await Ipify.ipv64();
-      ipAdd = ipv64;
+      var ipAdd = ipv64;
 
 
       if (isValidationSucess(
@@ -204,7 +204,7 @@ class Payment {
 
         var bytes = utf8.encode(pipeSeperatedString);
         Digest sha256Result = sha256.convert(bytes);
-        final digestHex = hex.encode(sha256Result.bytes);
+        // final digestHex = hex.encode(sha256Result.bytes);
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
         String appName = packageInfo.appName;
@@ -252,44 +252,49 @@ class Payment {
             deviceModel: devicemodel,
             deviceOSVersion: deviceVersion,
             clientPlatform: devicePlatform);
-        var devicebody = json.encode(detailsModel.toMap());
+        // var devicebody = json.encode(detailsModel.toMap());
 
         // customer details
-        Map<String, dynamic> orderJson  = {
-          'orderId': trackid ,
-        };
+        // Map<String, dynamic> orderJson  = {
+        //   'orderId': trackid ,
+        // };
 
         // Convert the map to a JSON string
         // String orderjsonString = jsonEncode(orderJson);
 
         //order details
-        Map<String, dynamic> customerJson  = {
-          'cardHolderName': firstName+" "+lastName,
-          'customerEmail': customerEmail,
-          'billingAddressStreet': '',
-          "billingAddressCity": city,
-          "billingAddressState": state,
-          "billingAddressPostalCode": zipCode,
-          "billingAddressCountry": country
+        // Map<String, dynamic> customerJson  = {
+        //   'cardHolderName': firstName+" "+lastName,
+        //   'customerEmail': customerEmail,
+        //   'billingAddressStreet': '',
+        //   "billingAddressCity": city,
+        //   "billingAddressState": state,
+        //   "billingAddressPostalCode": zipCode,
+        //   "billingAddressCountry": country
+        //
+        //
+        // };
 
-
-        };
-
-        //additionaldetails
-        Map<String, dynamic> additionalJson  = {
-          'userData': metadata,
-
-
-        };
+        // //additionaldetails
+        // Map<String, dynamic> additionalJson  = {
+        //   'userData': metadata,
+        //
+        //
+        // };onaldetails
+        // Map<String, dynamic> additionalJson  = {
+        //   'userData': metadata,
+        //
+        //
+        // };onaldetails
 
         // Convert the map to a JSON string
         // String customerjsonString = jsonEncode(customerJson);
 
         //order details
-        Map<String, dynamic> tokenizationJson  = {
-          "operation": tokenOperation,
-          "cardToken": cardToken
-        };
+        // Map<String, dynamic> tokenizationJson  = {
+        //   "operation": tokenOperation,
+        //   "cardToken": cardToken
+        // };
 
         // Convert the map to a JSON string
         // String tokenizationJsonString = jsonEncode(tokenizationJson);

@@ -38,31 +38,31 @@ enum DeviceType { Phone, Tablet }
 
 class Payment {
 
-  static Future get _localPath async {
-    String? dirPath;
-    /**
-     * Based on Platform Direct is created
-     * */
-
-    if (kIsWeb) {
-      print("Running on a Web Browser");
-    } else {
-      if (Platform.isIOS) {
-        print("Running on a iOS");
-        final appDirectory = await getApplicationDocumentsDirectory();
-        dirPath = appDirectory.path;
-      }
-
-      else if (Platform.isAndroid)
-      {
-        print("Running on a Android");
-        // External storage directory: /storage/emulated/0
-        final externalDirectory = await getExternalStorageDirectory();
-        dirPath = externalDirectory!.path;
-      }
-    }
-    return dirPath;
-  }
+  // static Future get _localPath async {
+  //   String? dirPath;
+  //   /**
+  //    * Based on Platform Direct is created
+  //    * */
+  //
+  //   if (kIsWeb) {
+  //     print("Running on a Web Browser");
+  //   } else {
+  //     if (Platform.isIOS) {
+  //       print("Running on a iOS");
+  //       final appDirectory = await getApplicationDocumentsDirectory();
+  //       dirPath = appDirectory.path;
+  //     }
+  //
+  //     else if (Platform.isAndroid)
+  //     {
+  //       print("Running on a Android");
+  //       // External storage directory: /storage/emulated/0
+  //       final externalDirectory = await getExternalStorageDirectory();
+  //       dirPath = externalDirectory!.path;
+  //     }
+  //   }
+  //   return dirPath;
+  // }
 
   // static Future get _localFile async {
   //   final path = await _localPath;
