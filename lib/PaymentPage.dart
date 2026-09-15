@@ -294,23 +294,23 @@ class Payment {
         // Convert the map to a JSON string
         // String tokenizationJsonString = jsonEncode(tokenizationJson);
 
-        PayTrxn payTrxn = new PayTrxn(
-            terminalId: t_id,
-            password: t_pass,
-            paymentType: action,
-            currency: currency,
-            customer: customerJson,
-            amount: amt,
-            customerIp: ipAdd,
-            merchantIp: ipAdd,
-            order: orderJson,
-            referenceId: transid,
-            country: country,
-            tokenization: tokenizationJson,
-            signature: digestHex,
-            deviceInfo: devicebody,
-            additionalDetails: additionalJson
-        );
+        // PayTrxn payTrxn = new PayTrxn(
+        //     terminalId: t_id,
+        //     password: t_pass,
+        //     paymentType: action,
+        //     currency: currency,
+        //     customer: customerJson,
+        //     amount: amt,
+        //     customerIp: ipAdd,
+        //     merchantIp: ipAdd,
+        //     order: orderJson,
+        //     referenceId: transid,
+        //     country: country,
+        //     tokenization: tokenizationJson,
+        //     signature: digestHex,
+        //     deviceInfo: devicebody,
+        //     additionalDetails: additionalJson
+        // );
 
         // body = json.encode(payTrxn.toMap());
 
@@ -694,7 +694,7 @@ class Payment {
 
     String pipeSeperatedString;
 
-    ResponseConfig resp = ResponseConfig();
+    // ResponseConfig resp = ResponseConfig();
     var ipAdd;
 
     dynamic paymentTokk;
@@ -710,7 +710,7 @@ class Payment {
     Constantvals.merchantkey = merc;
     Constantvals.requrl = req_url;
 
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    // var connectivityResult = await (Connectivity().checkConnectivity());
     final ipv64 = await Ipify.ipv64();
     ipAdd = ipv64;
 

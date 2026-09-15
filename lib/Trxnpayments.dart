@@ -27,7 +27,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'Constantvals.dart';
 import 'Model/DeviceDetailsModel.dart';
 
-import 'Model/PayVoidTrxn.dart';
+
 
 import 'ResponseConfig.dart';
 import 'package:crypto/crypto.dart';
@@ -64,13 +64,13 @@ class Payment {
     return dirPath;
   }
 
-  static Future get _localFile async {
-    final path = await _localPath;
-    final folderName = "flutter_plugin";
-
-
-    return File('$path/RespReqLog.txt');
-  }
+  // static Future get _localFile async {
+  //   final path = await _localPath;
+  //   final folderName = "flutter_plugin";
+  //
+  //
+  //   return File('$path/RespReqLog.txt');
+  // }
 
 
   /**
@@ -146,7 +146,7 @@ class Payment {
   }) async {
 
     String payRespData = "";
-    String instrumentType = "";
+    // String instrumentType = "";
 
     /**
      *  Initial Check for Transaction Processing  *****/
@@ -211,9 +211,9 @@ class Payment {
     var devicePlatform = "";
     var pluginName = "";
     var pluginVersion = "";
-    var paymentMethod = "";
+    // var paymentMethod = "";
     String? pluginPlatform;
-var ipAdd = "";
+// var ipAdd = "";
 
     text =  await DefaultAssetBundle.of(context).loadString('assets/appconfig.json');
     final jsonResponse = json.decode(text);
@@ -239,11 +239,11 @@ var ipAdd = "";
      * */
     try {
     final ipv64 = await Ipify.ipv64();
-    ipAdd = ipv64;
+    // var ipAdd = ipv64;
     pipeSeperatedString = orderID + "|" + Constantvals.termId + "|" + Constantvals.termpass +"|" +Constantvals.merchantkey + "|" + amount + "|" + currency;
 
 
-    print('$pipeSeperatedString');
+    // print('$pipeSeperatedString');
 
     var bytes = utf8.encode(pipeSeperatedString);
     Digest sha256Result = sha256.convert(bytes);
@@ -304,7 +304,7 @@ var ipAdd = "";
         deviceOSVersion: deviceVersion,
         clientPlatform: devicePlatform);
 
-    var devicebody = json.encode(detailsModel.toMap());
+    // var devicebody = json.encode(detailsModel.toMap());
     request["deviceInfo"] = detailsModel.toMap();
     request["signature"] = digestHex;
     request["password"] = Constantvals.termpass;
@@ -327,7 +327,7 @@ var ipAdd = "";
 
       else {
 
-        print('REQUEST in MAP $request');
+
         body = json.encode(request);
         // debugPrint(
         //   body,
@@ -727,7 +727,7 @@ var ipAdd = "";
     Constantvals.merchantkey = merc;
     Constantvals.requrl = req_url;
 
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    // var connectivityResult = await (Connectivity().checkConnectivity());
     final ipv64 = await Ipify.ipv64();
     ipAdd = ipv64;
 
