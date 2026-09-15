@@ -84,7 +84,7 @@ class _TransactWebpageState extends State<TransactWebpage> {
               if (url.contains("data=")) {
                 _hasReturnedResult = true;
 
-                print('Finish Data handling');
+                // print('Finish Data handling');
 
                 final arr = url.split('?');
                 if (arr.length < 2) return;
@@ -154,19 +154,19 @@ class _TransactWebpageState extends State<TransactWebpage> {
   Future<String>  RespJson(String resultData) async {
 
 
-    print(resultData);
+    // print(resultData);
       List<String> resultParameters = resultData.split("&");
       String finalDecryptedResp ="";
 
       for(final params in resultParameters)
       {
         List parts = params.split("=");
-        String key = parts[0];
-        String value = parts[1];
+        // String key = parts[0];
+        // String value = parts[1];
         //  print(key);
         if ([null, "null"].contains(parts[1]))
         {
-          value = "";
+          // value = "";
         }
 
         if ("data".contains(parts[0])) {
@@ -183,7 +183,7 @@ class _TransactWebpageState extends State<TransactWebpage> {
          }
       }
 
-      print("FINAL RESPONSE 2 $finalDecryptedResp");
+      // print("FINAL RESPONSE 2 $finalDecryptedResp");
 
       return finalDecryptedResp;
 
@@ -205,7 +205,7 @@ class _TransactWebpageState extends State<TransactWebpage> {
     String decryptedData = decryptData(encryptedResponse, secretKey);
 
 
-    print("Decrypted Data: $decryptedData");
+    // print("Decrypted Data: $decryptedData");
 
     return decryptedData;
   }

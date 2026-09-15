@@ -5,7 +5,6 @@ export 'PaymentPage.dart';
 export 'apple_pay_flutter.dart';
 export 'ResponseConfig.dart';
 export 'Constantvals.dart';
-export 'TransactPage.dart';
 export 'TransactWebpage.dart';
 export 'LogsUtility.dart';
 export 'payment_request.dart';

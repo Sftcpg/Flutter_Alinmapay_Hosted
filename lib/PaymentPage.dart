@@ -38,8 +38,8 @@ class Payment {
   /**
    * This method is used to check Device Size *****/
 
-  static String getDeviceType() {
-    final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+  static String getDeviceType(BuildContext context) {
+    final data = MediaQuery.of(context);
     return data.size.shortestSide < 550 ? "Phone" : "Tablet";
   }
 
@@ -58,10 +58,10 @@ class Payment {
 
         // Access the Flutter version under 'sdks'
         final sdks = yaml['sdks'];
-        return sdks?['flutter'];
+        return sdks?['flutter'] as String?;
       }
-    } catch (e) {
-      print('Error fetching Flutter version: $e');
+    } catch (_) {
+      // print('Error fetching Flutter version: $e');
     }
     return null;
   }
@@ -125,11 +125,11 @@ class Payment {
               'Please check your Internet Connection  ');
         }
       }
-      on SocketException catch (e) {
-        print(e);
+      on SocketException catch (_) {
         ResponseConfig.startTrxn = false;
-        showalertDailog(context, 'Alert', "Please check Provided Data");
-        //payRespData="Please check internet connection";
+        if (context.mounted) {
+          showalertDailog(context, 'Alert', "Please check Provided Data");
+        }
       }
     }
     else {
@@ -217,7 +217,7 @@ class Payment {
 
           DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
-          var devicedata = getDeviceType();
+          var devicedata = getDeviceType(context);
           if (Platform.isAndroid) {
             AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
             pluginName = "Flutter Android";
@@ -238,11 +238,11 @@ class Payment {
             devicePlatform = appName + " " + appversion;
           }
           // }
-        } catch(e)
+        } catch(_)
         {
           ResponseConfig.startTrxn = false;
           showalertDailog(context, 'Device Information',
-              'Please check your Internet Connection $e');
+              'Please check your Internet Connection');
         }
 
         DeviceDetailsModel detailsModel = new DeviceDetailsModel(
@@ -312,9 +312,9 @@ class Payment {
             additionalDetails: additionalJson
         );
 
-        body = json.encode(payTrxn.toMap());
+        // body = json.encode(payTrxn.toMap());
 
-        print('Request Body  $body');
+        // print('Request Body  $body');
 
         try {
           //   _writetoFile("Request " + body + "\n");
@@ -334,7 +334,7 @@ class Payment {
 
             var data = json.decode(response.body);
             // var cc =data["responseCode"];
-            print(" CODE $data ");
+            // print(" CODE $data ");
             if(data["responseCode"] == '001')
             {
 
@@ -342,7 +342,7 @@ class Payment {
               var linkurl  = data["paymentLink"] ;
               var data1 = linkurl["linkUrl"];
 
-              compURL = data1 + payId;
+              compURL = (data1 as String) + (payId as String);
 
 
 
@@ -353,22 +353,20 @@ class Payment {
                 ),
               );
 
-              print('Result from WebView: $result');
+              // print('Result from WebView: $result');
               if(result == null  )
               {
 
                 //print("in result null");
-                Navigator.of(context)
-                    .pop();
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
                 ResponseConfig.startTrxn = false;
               }
               else
               {
                 ResponseConfig.startTrxn = false;
                 readRespData = result;
-                print(" in if $compURL");
-                print(' Data3  $readRespData');
-
               }
             }
             else if (data["responseCode"] == '000') {
@@ -377,7 +375,6 @@ class Payment {
               var data = response.body;
 
               readRespData = data;
-              print(' Data2  $readRespData');
             }
             else {
 
@@ -385,54 +382,51 @@ class Payment {
 
               var responseData = response.body;
               var data = json.decode(response.body);
-              String RESString = data.toString();
+              // String RESString = data.toString();
               Map<String, dynamic> mapdata = data;
-              print('RESPONSE 000 $mapdata');
+              // print('RESPONSE 000 $mapdata');
               mapdata.forEach((key, value) {
 
                 String strvalue = value.toString();
 
                 if(strvalue == "null") {
-                  value = '';
-
-
                   mapdata.update(key, (value) => '');
                 }
-
-
-
               });
 
-              String data1 = mapdata.toString();
-              print(' Data1  $RESString');
               readRespData = responseData;
-              print(' Data1  $readRespData');
             }
           }
           else {
             String respCode = response.statusCode.toString();
             //_writetoFile("Response :" + body + "\n");
-            showalertDailog(context, 'Error', 'Invalid Request with $respCode');
+            if (context.mounted) {
+              showalertDailog(context, 'Error', 'Invalid Request with $respCode');
+            }
           }
         }
-        catch(e)
+        catch(_)
         {
           ResponseConfig.startTrxn = false;
-          showalertDailog(context, 'Internet Connection response ',
-              'Please check your Internet Connection  with $e');
+          if (context.mounted) {
+            showalertDailog(context, 'Internet Connection response ',
+              'Please check your Internet Connection');
+          }
         }
       }
       else {
 
         ResponseConfig.startTrxn = false;
       }
-    } catch (e) {
+    } catch (_) {
       // Handle the exception here
-      print('Error: Unable to reach the Ipify service.');
-      print('Exception: $e');
+      // print('Error: Unable to reach the Ipify service.');
+      // print('Exception: $e');
 
       ResponseConfig.startTrxn = false;
-      showalertDailog(context, 'Alert', "Please check Internet Connection");
+      if (context.mounted) {
+        showalertDailog(context, 'Alert', "Please check Internet Connection");
+      }
     }
 
     return readRespData;
@@ -596,7 +590,6 @@ class Payment {
   static Future<String> makeapplepaypaymentService({
     required BuildContext context, required String firstname,required String lastname,required String country, required String action, required String currency, required String amt, required String customerEmail, required String trackid, required String tokenizationType, required String merchantIdentifier, required String shippingCharge, required String companyName,required String metadata
   }) async {
-    assert(context != null, "context is null!!");
     dynamic applePaymentData;
     String appleRespdata="";
 
@@ -605,7 +598,7 @@ class Payment {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
-        print('$merchantIdentifier');
+        // print('$merchantIdentifier');
         try {
 
           if (companyName.isEmpty) {
@@ -642,11 +635,11 @@ class Payment {
               companyName: companyName,
 
             );
-            print(" Apple token Data :" + applePaymentData.toString());
+            // print(" Apple token Data :" + applePaymentData.toString());
           }
         }
         on PlatformException {
-          print('Failed payment');
+          // print('Failed payment');
         }
         var totalcharge= double.parse(amt)+double.parse(shippingCharge);
         String strtlchr=totalcharge.toString();
@@ -677,11 +670,13 @@ class Payment {
         }
       }
     }
-    on SocketException catch (e) {
+    on SocketException catch (_) {
       ResponseConfig.startTrxn = false;
       //appleRespdata = "Please check internet connection";
 
-      showalertDailog(context, 'Alert', "Please check Internet Connection");
+      if (context.mounted) {
+        showalertDailog(context, 'Alert', "Please check Internet Connection");
+      }
     }
 
     return appleRespdata;
@@ -726,12 +721,12 @@ class Payment {
     //     ipAdd = ipv4;
     //
     //   } on PlatformException {
-    //     print('Failed to get broadcast IP.');
+    //     // print('Failed to get broadcast IP.');
     //   }
     //
     // }
     // else {
-    //   print("Unable to connect. Please Check Internet Connection");
+    //   // print("Unable to connect. Please Check Internet Connection");
     // }
     var dblamt = double.parse(amt);
 
@@ -756,11 +751,11 @@ class Payment {
           trackid + "|" + Constantvals.termId + "|" + Constantvals.termpass +
               "|" +
               Constantvals.merchantkey + "|" + dblamt.toStringAsFixed(2) + "|" + currency;
-      print('$pipeSeperatedString');
+      // print('$pipeSeperatedString');
       var bytes = utf8.encode(pipeSeperatedString);
       Digest sha256Result = sha256.convert(bytes);
       final digestHex = hex.encode(sha256Result.bytes);
-      print('$digestHex');
+      // print('$digestHex');
 //TODO make changes for Proper Request JSON for Apple Pay
       // 'customer': customerJson,
       //  'order': orderjson,
@@ -809,7 +804,7 @@ class Payment {
 
         };
         var requrl = Uri.parse(Constantvals.requrl);
-        print('Request URL $requrl');
+        // print('Request URL $requrl');
         final response = await http.post(
           requrl,
           headers: <String, String>{
@@ -822,15 +817,17 @@ class Payment {
         if (response.statusCode == 200) {
 
           var data = response.body;
-          print('Resonse DATA $data');
+          // print('Resonse DATA $data');
           return data;
         }
       }
-      on Exception catch (e) {
+      on Exception catch (_) {
         ResponseConfig.startTrxn = false;
         //appleRespdata = "Please check internet connection";
-        print('Exception: $e');
-        showalertDailog(context, 'Alert', "Payment Gateway Exception $e");
+        // print('Exception: $e');
+        if (context.mounted) {
+          showalertDailog(context, 'Alert', "Payment Gateway Exception");
+        }
       }
     }
     else
