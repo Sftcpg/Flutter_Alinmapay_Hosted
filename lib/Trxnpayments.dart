@@ -238,7 +238,7 @@ class Payment {
      * It will fetch v6 but if not then will fetch v4
      * */
     try {
-    final ipv64 = await Ipify.ipv64();
+    // final ipv64 = await Ipify.ipv64();
     // var ipAdd = ipv64;
     pipeSeperatedString = orderID + "|" + Constantvals.termId + "|" + Constantvals.termpass +"|" +Constantvals.merchantkey + "|" + amount + "|" + currency;
 
@@ -248,12 +248,11 @@ class Payment {
     var bytes = utf8.encode(pipeSeperatedString);
     Digest sha256Result = sha256.convert(bytes);
     final digestHex = hex.encode(sha256Result.bytes);
-    print('$digestHex');
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     String appName = packageInfo.appName;
-    print('App Name : $appName');
+    // print('App Name : $appName');
 
     String appversion = packageInfo.version;
 
@@ -711,7 +710,7 @@ class Payment {
 
     String pipeSeperatedString;
 
-    ResponseConfig resp = ResponseConfig();
+    // ResponseConfig resp = ResponseConfig();
     var ipAdd;
 
     dynamic paymentTokk;
