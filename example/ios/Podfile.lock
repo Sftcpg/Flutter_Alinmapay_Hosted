@@ -1,15 +1,21 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_alinmapay_hosted (1.0.0):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_alinmapay_hosted (from `.symlinks/plugins/flutter_alinmapay_hosted/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_alinmapay_hosted:
+    :path: ".symlinks/plugins/flutter_alinmapay_hosted/ios"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_alinmapay_hosted: 49aedeff35889aba1b3c4c93657e2c9eaa5c5539
 
 PODFILE CHECKSUM: bc0d1ef0e548023a9bf0e5e87646b79147b61586
 
