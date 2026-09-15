@@ -203,7 +203,7 @@ class Payment {
                 Constantvals.merchantkey + "|" + amt + "|" + currency;
 
         var bytes = utf8.encode(pipeSeperatedString);
-        Digest sha256Result = sha256.convert(bytes);
+        // Digest sha256Result = sha256.convert(bytes);
         // final digestHex = hex.encode(sha256Result.bytes);
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
@@ -245,13 +245,13 @@ class Payment {
               'Please check your Internet Connection');
         }
 
-        DeviceDetailsModel detailsModel = new DeviceDetailsModel(
-            pluginName: pluginName,
-            pluginVersion: pluginVersion,
-            deviceType: pluginPlatform,
-            deviceModel: devicemodel,
-            deviceOSVersion: deviceVersion,
-            clientPlatform: devicePlatform);
+        // DeviceDetailsModel detailsModel = new DeviceDetailsModel(
+        //         //     pluginName: pluginName,
+        //         //     pluginVersion: pluginVersion,
+        //         //     deviceType: pluginPlatform,
+        //         //     deviceModel: devicemodel,
+        //         //     deviceOSVersion: deviceVersion,
+        //         //     clientPlatform: devicePlatform);
         // var devicebody = json.encode(detailsModel.toMap());
 
         // customer details
